@@ -11,10 +11,14 @@ public class States
 {
     public static StringBuilder token ;
     public static String prevToken ;
+    public static boolean isComment;
+    public static boolean isMax;
     public States()
     {
         token = new StringBuilder() ;
         prevToken = new String() ;
+        isComment = false;
+        isMax = false;
     }
 
     public void buildToken(char input)
@@ -22,74 +26,187 @@ public class States
         String output = new String();
         prevToken = token.toString() ;
         token.append(input) ;
-
-        if(input == ' ' || input == '\n')
-        {
-            printToken(prevToken) ;
-        }
-        if(input == '{')
-        {
-            printToken(prevToken) ;
-            printToken("{") ;
-        }
-        if(input == '(')
-        {
-            printToken(prevToken) ;
-            printToken("(");
-        }
-        if(input == ')')
-        {
-            printToken(prevToken);
-            printToken(")");
-        }
-        if(input == '}')
-        {
-            printToken(prevToken);
-            printToken("}");
-        }
-        if(input == ';')
-        {
-            printToken(prevToken);
-            printToken(";");
-        }
-        if(input == ',')
-        {
-            printToken(prevToken);
-            printToken(",");
-        }
-        if(input == '[')
-        {
-            printToken(prevToken);
-            printToken("[");
-        }
-        if(input == ']')
-        {
-            printToken(prevToken);
-            printToken("]");
-        }
-        if((input == '.') && !(prevToken.equals("System.out") || prevToken.equals("System"))) //check if the "." is part of print statement
-        {
-            if((prevToken.length() > 0) && Character.isDigit(prevToken.charAt(0))){ //check if it is an <INTEGER_LITERAL>
-                printToken("number");
+        if(!isComment){
+           if(input == ' ' || input == '\n' || input == '\t')
+            {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                    printToken("[0-9]");
+                }
+                else {
+                    printToken(prevToken) ;
+                }
+                
             }
-            else //If not an <INTEGER_LITERAL>, print prevToken & "."
+           if(input == '!')
+            {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                    printToken("[0-9]");
+                }
+                else {
+                    printToken(prevToken) ; 
+                }
+                printToken("!") ;
+            }
+            if(input == '{')
+            {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                    printToken("[0-9]");
+                }
+                else {
+                    printToken(prevToken) ; 
+                }
+                printToken("{") ;
+            }
+            if(input == '(')
+            {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                    printToken("[0-9]");
+                }
+                else {
+                    printToken(prevToken) ;
+                }
+                printToken("(");
+            }
+            if(input == ')')
+            {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                    printToken("[0-9]");
+                }
+                else {
+                    printToken(prevToken);
+                }
+                printToken(")");
+            }
+            if(input == '}')
+            {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                    printToken("[0-9]");
+                }
+                else {
+                    printToken(prevToken);
+                }
+                printToken("}");
+            }
+            if(input == ';')
+            {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                    printToken("[0-9]");
+                }
+                else {
+                    printToken(prevToken);
+                }
+                printToken(";");
+            }
+            if(input == ',')
             {
                 printToken(prevToken);
-                printToken(".");
+                printToken(",");
+            }
+            if(input == '[')
+            {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                    printToken("[0-9]");
+                }
+                else {
+                    printToken(prevToken);
+                }
+                printToken("[");
+            }
+            if(input == ']')
+            {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                    printToken("[0-9]");
+                }
+                else {
+                    printToken(prevToken);
+                }
+                printToken("]");
+            }
+            if(input == '-') {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                    printToken("[0-9]");
+                }
+                else {
+                    printToken(prevToken);
+                }
+                printToken("-");
+            }
+            if(input == '+') {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                    printToken("[0-9]");
+                }
+                else {
+                    printToken(prevToken);
+                }
+                printToken("+");
+            }
+            if((input == '.') && !(prevToken.equals("System.out") || prevToken.equals("System"))) //check if the "." is part of print statement
+            {
+                if((prevToken.length() > 0) && Character.isDigit(prevToken.charAt(0))){ //check if it is an <INTEGER_LITERAL>
+                    printToken("[0-9]");
+                }
+                else //If not an <INTEGER_LITERAL>, print prevToken & "."
+                {
+                    printToken(prevToken);
+                    printToken(".");
+                }
+            }
+            if(input == '/'){ //check if the "/" is part of a comment
+                isComment = true;
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                    printToken("[0-9]");
+                }
+                else {
+                    printToken(prevToken);
+                }
+                
+                /*if(prevToken.equals("/"))
+                {
+                    printToken("//");                    
+                }
+                else if((prevToken.length() > 0) && prevToken.charAt(prevToken.length()-1) == '*' )
+                {
+                if(prevToken.charAt(0) == '/' && prevToken.charAt(1) == '*'){
+                printToken("/*");
+                isComment = true;
+                }
+                }*/
+            }
+            if(input == '*') {
+                if(prevToken.equals("/")) {
+                    printToken("/*");
+                    isComment = true;
+                }
+                else {
+                    if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                        printToken("[0-9]");
+                    }
+                    else {
+                        printToken(prevToken);
+                    }
+                    printToken("*");
+                }
             }
         }
-        if(input == '/'){ //check if the "/" is part of a comment
-            if(prevToken.equals("/"))
-            {
-                printToken("//");
+        if(isComment){
+            if(input == '/') {
+                if(prevToken.equals("/")){
+                    printToken("//");
+                }
+                else {
+                    isComment = false;
+                }
             }
-            else if(prevToken.equals("*")){
-                printToken("/*");
+            if(isMax) {
+                if(prevToken.contains("//")) {
+                    this.token = new StringBuilder() ;
+                    this.prevToken = "" ;
+                    isComment = false;
+                }
             }
-            else if((prevToken.length() > 0) && prevToken.charAt(prevToken.length()-1) == '*' )
-            {
-                if(prevToken.charAt(0) == '/' && prevToken.charAt(1) == '*'){
-                    printToken("/*");
+            if(input == '/'){
+                if(prevToken.contains("/*")){
+                    printToken("*/");
                 }
             }
         }
@@ -97,155 +214,241 @@ public class States
 
     public void printToken(String token)
     {
-        if(token.equals("class"))
-        {
-            System.out.print("<TClass>") ;
-        }
-        if(token.equals("public"))
-        {
-            System.out.print("<TPublic>") ;
-        }
-        if(token.equals("static"))
-        {
-            System.out.print("<TStatic>") ;
-        }
-        if(token.equals("void"))
-        {
-            System.out.print("<TVoid>") ;
-        }
-        if(token.equals("main"))
-        {
-            System.out.print("<TMain>") ;
-        }
-        if(token.equals("String"))
-        {
-            System.out.print("<TString>") ;
-        }
-        if(token.equals("extends"))
-        {
-            System.out.print("<TExtends>") ;
-        }
-        if(token.equals("return"))
-        {
-            System.out.print("<TReturn>") ;
-        }
-        if(token.equals("int"))
-        {
-            System.out.print("<TInt>") ;
-        }
-        if(token.equals("boolean"))
-        {
-            System.out.print("<TBool>") ;
-        }
-        if(token.equals("if"))
-        {
-            System.out.print("<TIf>") ;
-        }
-        if(token.equals("else"))
-        {
-            System.out.print("<TElse>") ;
-        }
-        if(token.equals("while"))
-        {
-            System.out.print("<TWhile>") ;
-        }
-        if(token.equals("System.out.println"))
-        {
-            System.out.print("<TPrint>") ;
-        }
-        if(token.equals("length"))
-        {
-            System.out.print("<TLength>") ;
-        }
-        if(token.equals("true"))
-        {
-            System.out.print("<TTrue>") ;
-        }
-        if(token.equals("false"))
-        {
-            System.out.print("<TFalse>") ;
-        }
-        if(token.equals("this"))
-        {
-            System.out.print("<TThis>") ;
-        }
-        if(token.equals("new"))
-        {
-            System.out.print("<TNew>") ;
-        }
-        if(token.equals("{"))
-        {
-            System.out.print("<TLcurly>") ;
-        }
-        if(token.equals("}"))
-        {
-            System.out.print("<TRcurly>") ;
-        }
-        if(token.equals("("))
-        {
-            System.out.print("<TLparen>") ;
-        }
-        if(token.equals(")"))
-        {
-            System.out.print("<TRparen>");
-        }
-        if(token.equals("["))
-        {
-            System.out.print("<TLbracket>");
-        }
-        if(token.equals("]"))
-        {
-            System.out.print("<TRbracket>");
-        }
-        if(token.equals(","))
-        {
-            System.out.print("<TComma>");
-        }
-        if(token.equals(";"))
-        {
-            System.out.print("<TSemicolon>");
-        }
-        if(token.equals("&&"))
-        {
-            System.out.print("<TAnd>");
-        }
-        if(token.equals("<"))
-        {
-            System.out.print("<TLt>");
-        }
-        if(token.equals(">"))
-        {
-            System.out.print("<TGt>");
-        }
-        if(token.equals("+"))
-        {
-            System.out.print("<TPlus>");
-        }
-        if(token.equals("-"))
-        {
-            System.out.print("<TMinus>");
-        }
-        if(token.equals("*"))
-        {
-            System.out.print("<TTimes>");
-        }
-        if(token.equals("!"))
-        {
-          System.out.print("<TExc>");
-        }
-        if(token.equals("."))
-        {
-            System.out.print("<TPeriod>");
-        }
-        if(token.equals("number"))
-        {
-            System.out.print("<TNumber>");
-        }
-        if(token.equals("//") || token.equals("/*"))
-        {
-            System.out.print("<TComments>");
-        }
-        this.token = new StringBuilder() ;
-        this.prevToken = "" ;
+        switch(token) {
+                         
+            case "class": 
+                System.out.print("<TClass>") ;
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+                
+            case "public":
+                System.out.print("<TPublic>") ;
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "static":
+                System.out.print("<TStatic>") ;
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "void":
+                System.out.print("<TVoid>") ;
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "main":
+                System.out.print("<TMain>") ;
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "String":
+                System.out.print("<TString>") ;
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "extends":
+                System.out.print("<TExtends>") ;
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "return":
+                System.out.print("<TReturn>") ;
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "int":
+                System.out.print("<TInt>") ;
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "boolean":
+                System.out.print("<TBool>") ;
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "if": 
+                System.out.print("<TIf>") ;
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "else":
+                System.out.print("<TElse>") ;
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "while":
+                System.out.print("<TWhile>") ;
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "System.out.println":
+                System.out.print("<TPrint>") ;
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "length":
+                System.out.print("<TLength>") ;
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "true":
+                System.out.print("<TTrue>") ;
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "false":
+                System.out.print("<TFalse>") ;
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "this":
+                System.out.print("<TThis>") ;
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "new":
+                System.out.print("<TNew>") ;
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "{":
+                System.out.print("<TLcurly>") ;
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "}":
+                System.out.print("<TRcurly>") ;
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "(":
+                System.out.print("<TLparen>") ;
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case ")":
+                System.out.print("<TRparen>");
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "[":
+                System.out.print("<TLbracket>");
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "]":
+                System.out.print("<TRbracket>");
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case ",":
+                System.out.print("<TComma>");
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case ";":
+                System.out.print("<TSemicolon>");
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "&&":
+                System.out.print("<TAnd>");
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "<":
+                System.out.print("<TLt>");
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case ">":
+                System.out.print("<TGt>");
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "+":
+                System.out.print("<TPlus>");
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "-":
+                System.out.print("<TMinus>");
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "*":
+                System.out.print("<TTimes>");
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "=":
+                System.out.print("<TEqual>");
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "!":
+                System.out.print("<TExc>");
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case ".":
+                System.out.print("<TPeriod>");
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "[0-9]":
+                System.out.print("<TNumber>");
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "//":
+                System.out.print("<TComments>");
+                break;
+            case "/*":
+                System.out.print("<TComments>");
+                break;
+            case "*/":
+                isComment = false;
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            default:
+                if(!isComment) {
+                    if(!(token.equals(""))){
+                        if(Character.isLetter(token.charAt(0)) 
+                            && !(token.contains("}") 
+                                && token.contains("*") 
+                                && token.contains("/")
+                                && token.contains("\\")
+                                && token.contains(".")
+                                && token.contains("{")
+                                && token.contains("(")
+                                && token.contains(")")
+                                && token.contains("[")
+                                && token.contains("]")
+                                && token.contains("&")
+                                && token.contains("^")
+                                && token.contains(">")
+                                && token.contains("<")
+                                && token.contains("-")
+                                && token.contains("+")
+                                && token.contains(";")
+                                && token.contains("?")
+                                )){
+                            System.out.print("<TId>");
+                        }
+                    }
+                    this.token = new StringBuilder() ;
+                    this.prevToken = "" ;
+                }
+                break;
+        } 
     }
+    
+    public void setMax(boolean max) {
+        isMax = max;
 }
+}
+
+

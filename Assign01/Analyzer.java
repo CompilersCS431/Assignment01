@@ -33,17 +33,33 @@ public class Analyzer
         BufferedReader br = new BufferedReader(new FileReader(inFile)) ;
         String line ;
         line = br.readLine() ;
+        States state = new States() ;
+        boolean max;
         while(line != null)
         {
             //read one character at a time
-            States state = new States() ;
+            max = false;
+            state.setMax(max);
             for(int i = 0 ; i < line.length() ; i++)
             {
                 char curChar = line.charAt(i) ;
+                if(i == (line.length() - 1)){
+                    max = true;
+                    state.setMax(max);
+                }
                 state.buildToken(curChar) ;
             }
             
             line = br.readLine() ;
         }
     }
+    
+    
+    
+    public static void main(String[] args) throws IOException {
+        Analyzer.readFile();
+    }
 }
+
+
+
