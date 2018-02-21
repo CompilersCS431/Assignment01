@@ -1,4 +1,4 @@
-package Assign01;
+ 
 
 
 /**
@@ -45,5 +45,6 @@ public class Analyzer
             
             line = br.readLine() ;
         }
+        System.out.println("\n") ;
     }
 }

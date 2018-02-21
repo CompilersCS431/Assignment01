@@ -1,6 +1,3 @@
-package Assign01;
-
-
 /**
  * Write a description of class States here.
  *
@@ -21,6 +18,7 @@ public class States
     {
         String output = new String();
         prevToken = token.toString() ;
+        prevToken = prevToken.trim() ;
         token.append(input) ;
 
         if(input == ' ' || input == '\n')
@@ -97,153 +95,196 @@ public class States
 
     public void printToken(String token)
     {
+        boolean isID = true ;
+        
         if(token.equals("class"))
         {
             System.out.print("<TClass>") ;
+            isID = false ;
         }
         if(token.equals("public"))
         {
             System.out.print("<TPublic>") ;
+            isID = false ;
         }
         if(token.equals("static"))
         {
             System.out.print("<TStatic>") ;
+            isID = false ;
         }
         if(token.equals("void"))
         {
             System.out.print("<TVoid>") ;
+            isID = false ;
         }
         if(token.equals("main"))
         {
             System.out.print("<TMain>") ;
+            isID = false ;
         }
         if(token.equals("String"))
         {
             System.out.print("<TString>") ;
+            isID = false ;
         }
         if(token.equals("extends"))
         {
             System.out.print("<TExtends>") ;
+            isID = false ;
         }
         if(token.equals("return"))
         {
             System.out.print("<TReturn>") ;
+            isID = false ;
         }
         if(token.equals("int"))
         {
             System.out.print("<TInt>") ;
+            isID = false ;
         }
         if(token.equals("boolean"))
         {
             System.out.print("<TBool>") ;
+            isID = false ;
         }
         if(token.equals("if"))
         {
             System.out.print("<TIf>") ;
+            isID = false ;
         }
         if(token.equals("else"))
         {
             System.out.print("<TElse>") ;
+            isID = false ;
         }
         if(token.equals("while"))
         {
             System.out.print("<TWhile>") ;
+            isID = false ;
         }
         if(token.equals("System.out.println"))
         {
             System.out.print("<TPrint>") ;
+            isID = false ;
         }
         if(token.equals("length"))
         {
             System.out.print("<TLength>") ;
+            isID = false ;
         }
         if(token.equals("true"))
         {
             System.out.print("<TTrue>") ;
+            isID = false ;
         }
         if(token.equals("false"))
         {
             System.out.print("<TFalse>") ;
+            isID = false ;
         }
         if(token.equals("this"))
         {
             System.out.print("<TThis>") ;
+            isID = false ;
         }
         if(token.equals("new"))
         {
             System.out.print("<TNew>") ;
+            isID = false ;
         }
         if(token.equals("{"))
         {
             System.out.print("<TLcurly>") ;
+            isID = false ;
         }
         if(token.equals("}"))
         {
             System.out.print("<TRcurly>") ;
+            isID = false ;
         }
         if(token.equals("("))
         {
             System.out.print("<TLparen>") ;
+            isID = false ;
         }
         if(token.equals(")"))
         {
             System.out.print("<TRparen>");
+            isID = false ;
         }
         if(token.equals("["))
         {
             System.out.print("<TLbracket>");
+            isID = false ;
         }
         if(token.equals("]"))
         {
             System.out.print("<TRbracket>");
+            isID = false ;
         }
         if(token.equals(","))
         {
             System.out.print("<TComma>");
+            isID = false ;
         }
         if(token.equals(";"))
         {
             System.out.print("<TSemicolon>");
+            isID = false ;
         }
         if(token.equals("&&"))
         {
             System.out.print("<TAnd>");
+            isID = false ;
         }
         if(token.equals("<"))
         {
             System.out.print("<TLt>");
+            isID = false ;
         }
         if(token.equals(">"))
         {
             System.out.print("<TGt>");
+            isID = false ;
         }
         if(token.equals("+"))
         {
             System.out.print("<TPlus>");
+            isID = false ;
         }
         if(token.equals("-"))
         {
             System.out.print("<TMinus>");
+            isID = false ;
         }
         if(token.equals("*"))
         {
             System.out.print("<TTimes>");
+            isID = false ;
         }
         if(token.equals("!"))
         {
           System.out.print("<TExc>");
+          isID = false ;
         }
         if(token.equals("."))
         {
             System.out.print("<TPeriod>");
+            isID = false ;
         }
         if(token.equals("number"))
         {
             System.out.print("<TNumber>");
+            isID = false ;
         }
         if(token.equals("//") || token.equals("/*"))
         {
             System.out.print("<TComments>");
+            isID = false ;
+        }
+        if(isID && !prevToken.equals(""))
+        {
+            System.out.print("<TId>") ;
         }
         this.token = new StringBuilder() ;
         this.prevToken = "" ;

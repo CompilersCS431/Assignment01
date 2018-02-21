@@ -1,8 +1,10 @@
 #BlueJ class context
-comment0.params=
-comment0.target=States()
-comment1.params=input
-comment1.target=void\ buildToken(char)
-comment2.params=token
-comment2.target=void\ printToken(java.lang.String)
-numComments=3
+comment0.target=States
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ States\ here.\r\n\r\n\ @author\ (Nathan\ Moder)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=States()
+comment2.params=input
+comment2.target=void\ buildToken(char)
+comment3.params=token
+comment3.target=void\ printToken(java.lang.String)
+numComments=4
