@@ -47,7 +47,7 @@ public class States
                 }
                 printToken("!") ;
             }
-            if(input == '{')
+           if(input == '<')
             {
                 if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
                     printToken("[0-9]");
@@ -55,7 +55,32 @@ public class States
                 else {
                     printToken(prevToken) ; 
                 }
-                printToken("{") ;
+                printToken("<") ;
+            }
+            if(input == '>')
+            {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                    printToken("[0-9]");
+                }
+                else {
+                    printToken(prevToken) ; 
+                }
+                printToken(">") ;
+            }
+            if(input == '&')
+            {
+                if(prevToken.equals("&")){
+                    printToken("&&") ;
+                }
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                    printToken("[0-9]");
+                }
+                else if(prevToken.equals("")){
+                    
+                }
+                else {
+                    printToken(prevToken) ; 
+                }
             }
             if(input == '(')
             {
@@ -87,6 +112,16 @@ public class States
                 }
                 printToken("}");
             }
+            if(input == '{')
+            {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                    printToken("[0-9]");
+                }
+                else {
+                    printToken(prevToken);
+                }
+                printToken("{");
+            }
             if(input == ';')
             {
                 if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
@@ -99,7 +134,12 @@ public class States
             }
             if(input == ',')
             {
-                printToken(prevToken);
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                    printToken("[0-9]");
+                }
+                else {
+                    printToken(prevToken);
+                }
                 printToken(",");
             }
             if(input == '[')
@@ -159,18 +199,6 @@ public class States
                 else {
                     printToken(prevToken);
                 }
-                
-                /*if(prevToken.equals("/"))
-                {
-                    printToken("//");                    
-                }
-                else if((prevToken.length() > 0) && prevToken.charAt(prevToken.length()-1) == '*' )
-                {
-                if(prevToken.charAt(0) == '/' && prevToken.charAt(1) == '*'){
-                printToken("/*");
-                isComment = true;
-                }
-                }*/
             }
             if(input == '*') {
                 if(prevToken.equals("/")) {
@@ -417,30 +445,33 @@ public class States
                 if(!isComment) {
                     if(!(token.equals(""))){
                         if(Character.isLetter(token.charAt(0)) 
-                            && !(token.contains("}") 
-                                && token.contains("*") 
-                                && token.contains("/")
-                                && token.contains("\\")
-                                && token.contains(".")
-                                && token.contains("{")
-                                && token.contains("(")
-                                && token.contains(")")
-                                && token.contains("[")
-                                && token.contains("]")
-                                && token.contains("&")
-                                && token.contains("^")
-                                && token.contains(">")
-                                && token.contains("<")
-                                && token.contains("-")
-                                && token.contains("+")
-                                && token.contains(";")
-                                && token.contains("?")
+                            && !(token.contains("&") 
+                                || token.contains("*") 
+                                || token.contains("/")
+                                || token.contains("\\")
+                                || token.contains(".")
+                                || token.contains("{")
+                                || token.contains("(")
+                                || token.contains(")")
+                                || token.contains("[")
+                                || token.contains("]")
+                                || token.contains("}")
+                                || token.contains("^")
+                                || token.contains(">")
+                                || token.contains("<")
+                                || token.contains("-")
+                                || token.contains("+")
+                                || token.contains(";")
+                                || token.contains("?")
                                 )){
-                            System.out.print("<TId>");
+                            System.out.print("<TId>");     
+                            this.prevToken = "" ;
                         }
-                    }
+                    }                      
                     this.token = new StringBuilder() ;
-                    this.prevToken = "" ;
+                    
+                    
+                    
                 }
                 break;
         } 
