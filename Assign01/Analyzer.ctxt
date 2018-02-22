@@ -1,5 +1,7 @@
 #BlueJ class context
 comment0.target=Analyzer
-comment1.params=
-comment1.target=void\ readFile()
-numComments=2
+comment1.params=fpIn\ fpOut
+comment1.target=void\ readFile(java.lang.String,\ java.lang.String)
+comment2.params=args
+comment2.target=void\ main(java.lang.String[])
+numComments=3
