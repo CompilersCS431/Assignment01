@@ -10,27 +10,17 @@ package Assign01;
  * @version (2/14/18)
  */
 import java.io.* ;
+import java.util.Scanner;
 import javax.swing.* ;
 public class Analyzer
 {
-    public static void readFile() throws IOException
+    public static void readFile(String filename) throws IOException
     {
-        JFileChooser chooser = new JFileChooser();
-        int returnVal = chooser.showOpenDialog(null);
-        File inFile ;
+        String output = "";
         
-        if(returnVal == JFileChooser.APPROVE_OPTION)
-        {
-            inFile = chooser.getSelectedFile();
-        }
-        else
-        {
-            inFile = null ;
-        }
+        BufferedWriter write = new BufferedWriter(new FileWriter(new File("output1")));
         
-        
-        
-        BufferedReader br = new BufferedReader(new FileReader(inFile)) ;
+        BufferedReader br = new BufferedReader(new FileReader(filename)) ;
         String line ;
         line = br.readLine() ;
         States state = new States() ;
@@ -47,18 +37,18 @@ public class Analyzer
                     max = true;
                     state.setMax(max);
                 }
-                state.buildToken(curChar) ;
+                output += state.buildToken(curChar) ;
             }
             
             line = br.readLine() ;
         }
+        
+       // System.out.print(output);
+       write.write(output);
+	   write.write("\r\n");
+       write.close();
     }
     
-    
-    
-    public static void main(String[] args) throws IOException {
-        Analyzer.readFile();
-    }
 }
 
 

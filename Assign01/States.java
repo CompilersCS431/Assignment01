@@ -13,15 +13,17 @@ public class States
     public static String prevToken ;
     public static boolean isComment;
     public static boolean isMax;
+    public static String output; 
     public States()
     {
         token = new StringBuilder() ;
         prevToken = new String() ;
         isComment = false;
         isMax = false;
+        output = new String();
     }
 
-    public void buildToken(char input)
+    public String buildToken(char input)
     {
         String output = new String();
         prevToken = token.toString() ;
@@ -29,18 +31,27 @@ public class States
         if(!isComment){
            if(input == ' ' || input == '\n' || input == '\t')
             {
-                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && !prevToken.contains(".")) {
                     printToken("[0-9]");
+                }
+                else if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && prevToken.contains(".")) {
+                    printToken("[0-9].[0-9]");
                 }
                 else {
                     printToken(prevToken) ;
-                }
-                
+                } 
             }
            if(input == '!')
             {
-                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && !prevToken.contains(".")) {
                     printToken("[0-9]");
+                }
+                else if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && prevToken.contains(".")) {
+                    printToken("[0-9].[0-9]");
                 }
                 else {
                     printToken(prevToken) ; 
@@ -49,8 +60,13 @@ public class States
             }
            if(input == '<')
             {
-                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && !prevToken.contains(".")) {
                     printToken("[0-9]");
+                }
+                else if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && prevToken.contains(".")) {
+                    printToken("[0-9].[0-9]");
                 }
                 else {
                     printToken(prevToken) ; 
@@ -59,11 +75,13 @@ public class States
             }
             if(input == '>')
             {
-                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && !prevToken.contains(".")) {
                     printToken("[0-9]");
                 }
-                else {
-                    printToken(prevToken) ; 
+                else if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && prevToken.contains(".")) {
+                    printToken("[0-9].[0-9]");
                 }
                 printToken(">") ;
             }
@@ -72,8 +90,13 @@ public class States
                 if(prevToken.equals("&")){
                     printToken("&&") ;
                 }
-                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && !prevToken.contains(".")) {
                     printToken("[0-9]");
+                }
+                else if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && prevToken.contains(".")) {
+                    printToken("[0-9].[0-9]");
                 }
                 else if(prevToken.equals("")){
                     
@@ -84,8 +107,13 @@ public class States
             }
             if(input == '(')
             {
-                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && !prevToken.contains(".")) {
                     printToken("[0-9]");
+                }
+                else if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && prevToken.contains(".")) {
+                    printToken("[0-9].[0-9]");
                 }
                 else {
                     printToken(prevToken) ;
@@ -94,8 +122,13 @@ public class States
             }
             if(input == ')')
             {
-                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && !prevToken.contains(".")) {
                     printToken("[0-9]");
+                }
+                else if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && prevToken.contains(".")) {
+                    printToken("[0-9].[0-9]");
                 }
                 else {
                     printToken(prevToken);
@@ -104,8 +137,13 @@ public class States
             }
             if(input == '}')
             {
-                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && !prevToken.contains(".")) {
                     printToken("[0-9]");
+                }
+                else if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && prevToken.contains(".")) {
+                    printToken("[0-9].[0-9]");
                 }
                 else {
                     printToken(prevToken);
@@ -114,8 +152,13 @@ public class States
             }
             if(input == '{')
             {
-                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && !prevToken.contains(".")) {
                     printToken("[0-9]");
+                }
+                else if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && prevToken.contains(".")) {
+                    printToken("[0-9].[0-9]");
                 }
                 else {
                     printToken(prevToken);
@@ -124,8 +167,13 @@ public class States
             }
             if(input == ';')
             {
-                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && !prevToken.contains(".")) {
                     printToken("[0-9]");
+                }
+                else if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && prevToken.contains(".")) {
+                    printToken("[0-9].[0-9]");
                 }
                 else {
                     printToken(prevToken);
@@ -134,8 +182,13 @@ public class States
             }
             if(input == ',')
             {
-                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && !prevToken.contains(".")) {
                     printToken("[0-9]");
+                }
+                else if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && prevToken.contains(".")) {
+                    printToken("[0-9].[0-9]");
                 }
                 else {
                     printToken(prevToken);
@@ -144,8 +197,13 @@ public class States
             }
             if(input == '[')
             {
-                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && !prevToken.contains(".")) {
                     printToken("[0-9]");
+                }
+                else if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && prevToken.contains(".")) {
+                    printToken("[0-9].[0-9]");
                 }
                 else {
                     printToken(prevToken);
@@ -163,8 +221,13 @@ public class States
                 printToken("]");
             }
             if(input == '-') {
-                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && !prevToken.contains(".")) {
                     printToken("[0-9]");
+                }
+                else if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && prevToken.contains(".")) {
+                    printToken("[0-9].[0-9]");
                 }
                 else {
                     printToken(prevToken);
@@ -172,8 +235,13 @@ public class States
                 printToken("-");
             }
             if(input == '+') {
-                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && !prevToken.contains(".")) {
                     printToken("[0-9]");
+                }
+                else if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && prevToken.contains(".")) {
+                    printToken("[0-9].[0-9]");
                 }
                 else {
                     printToken(prevToken);
@@ -182,8 +250,8 @@ public class States
             }
             if((input == '.') && !(prevToken.equals("System.out") || prevToken.equals("System"))) //check if the "." is part of print statement
             {
-                if((prevToken.length() > 0) && Character.isDigit(prevToken.charAt(0))){ //check if it is an <INTEGER_LITERAL>
-                    printToken("[0-9]");
+                if((prevToken.length() > 0) && Character.isDigit(prevToken.charAt(0))){ //check if it is a Real Number
+                    
                 }
                 else //If not an <INTEGER_LITERAL>, print prevToken & "."
                 {
@@ -193,8 +261,13 @@ public class States
             }
             if(input == '/'){ //check if the "/" is part of a comment
                 isComment = true;
-                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
+                if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && !prevToken.contains(".")) {
                     printToken("[0-9]");
+                }
+                else if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && prevToken.contains(".")) {
+                    printToken("[0-9].[0-9]");
                 }
                 else {
                     printToken(prevToken);
@@ -206,9 +279,14 @@ public class States
                     isComment = true;
                 }
                 else {
-                    if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0))) {
-                        printToken("[0-9]");
-                    }
+                    if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && !prevToken.contains(".")) {
+                    printToken("[0-9]");
+                }
+                else if(!(prevToken.equals("")) && Character.isDigit(prevToken.charAt(0)) 
+                        && prevToken.contains(".")) {
+                    printToken("[0-9].[0-9]");
+                }
                     else {
                         printToken(prevToken);
                     }
@@ -238,135 +316,144 @@ public class States
                 }
             }
         }
+        
+        if(isMax){
+            String temp = this.output;
+            this.output = "";
+            return temp;
+        }
+        else {
+            return "";
+        } 
     }
 
-    public void printToken(String token)
-    {
+    public String printToken(String token)
+    {        
         switch(token) {
                          
             case "class": 
-                System.out.print("<TClass>") ;
+                output += "<TClass>" ;
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
                 
             case "public":
-                System.out.print("<TPublic>") ;
+                output += "<TPublic>" ;
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "static":
-                System.out.print("<TStatic>") ;
+                output += "<TStatic>" ;
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "void":
-                System.out.print("<TVoid>") ;
+                output += "<TVoid>" ;
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "main":
-                System.out.print("<TMain>") ;
+                output += "<TMain>" ;
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "String":
-                System.out.print("<TString>") ;
+                output += "<TString>" ;
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "extends":
-                System.out.print("<TExtends>") ;
+                output += "<TExtends>" ;
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "return":
-                System.out.print("<TReturn>") ;
+                output += "<TReturn>" ;
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "int":
-                System.out.print("<TInt>") ;
+                output += "<TInt>" ;
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "boolean":
-                System.out.print("<TBool>") ;
+                output += "<TBool>" ;
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "if": 
-                System.out.print("<TIf>") ;
+                output += "<TIf>" ;
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "else":
-                System.out.print("<TElse>") ;
+                output += "<TElse>" ;
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "while":
-                System.out.print("<TWhile>") ;
+                output += "<TWhile>" ;
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "System.out.println":
-                System.out.print("<TPrint>") ;
+                output += "<TPrint>" ;
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "length":
-                System.out.print("<TLength>") ;
+                output += "<TLength>" ;
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "true":
-                System.out.print("<TTrue>") ;
+                output += "<TTrue>" ;
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "false":
-                System.out.print("<TFalse>") ;
+                output += "<TFalse>" ;
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "this":
-                System.out.print("<TThis>") ;
+                output += "<TThis>" ;
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "new":
-                System.out.print("<TNew>") ;
+                output += "<TNew>" ;
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "{":
-                System.out.print("<TLcurly>") ;
+                output += "<TLcurly>" ;
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "}":
-                System.out.print("<TRcurly>") ;
+                output += "<TRcurly>" ;
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "(":
-                System.out.print("<TLparen>") ;
+                output += "<TLparen>" ;
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case ")":
-                System.out.print("<TRparen>");
+                output += "<TRparen>";
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "[":
-                System.out.print("<TLbracket>");
+                output += "<TLbracket>";
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "]":
-                System.out.print("<TRbracket>");
+                output += "<TRbracket>";
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
@@ -376,65 +463,70 @@ public class States
                 this.prevToken = "" ;
                 break;
             case ";":
-                System.out.print("<TSemicolon>");
+                output += "<TSemicolon>";
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "&&":
-                System.out.print("<TAnd>");
+                output += "<TAnd>";
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "<":
-                System.out.print("<TLt>");
+                output += "<TLt>";
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case ">":
-                System.out.print("<TGt>");
+                output += "<TGt>";
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "+":
-                System.out.print("<TPlus>");
+                output += "<TPlus>";
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "-":
-                System.out.print("<TMinus>");
+                output += "<TMinus>";
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "*":
-                System.out.print("<TTimes>");
+                output += "<TTimes>";
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "=":
-                System.out.print("<TEqual>");
+                output += "<TEqual>";
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "!":
-                System.out.print("<TExc>");
+                output += "<TExc>";
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case ".":
-                System.out.print("<TPeriod>");
+                output += "<TPeriod>";
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "[0-9]":
-                System.out.print("<TNumber>");
+                output += "<TNumber>";
+                this.token = new StringBuilder() ;
+                this.prevToken = "" ;
+                break;
+            case "[0-9].[0-9]":
+                output += "<TReal>";
                 this.token = new StringBuilder() ;
                 this.prevToken = "" ;
                 break;
             case "//":
-                System.out.print("<TComments>");
+                output += "<TComments>";
                 break;
             case "/*":
-                System.out.print("<TComments>");
+                output += "<TComments>";
                 break;
             case "*/":
                 isComment = false;
@@ -464,7 +556,7 @@ public class States
                                 || token.contains(";")
                                 || token.contains("?")
                                 )){
-                            System.out.print("<TId>");     
+                            output += "<TId>";     
                             this.prevToken = "" ;
                         }
                     }                      
@@ -475,11 +567,14 @@ public class States
                 }
                 break;
         } 
+        
+        return "";
+        
     }
     
     public void setMax(boolean max) {
         isMax = max;
-}
+    }
 }
 
 
